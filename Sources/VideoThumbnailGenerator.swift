@@ -26,7 +26,7 @@ struct ThumbnailGeneratorTool: AsyncParsableCommand {
         name: .shortAndLong,
         help: "Timestamp in seconds to extract. Defaults to the middle of the video if omitted."
     )
-    var time: Double?
+    var timestamp: Double?
     
     @Option(
         name: .long,
@@ -80,7 +80,7 @@ struct ThumbnailGeneratorTool: AsyncParsableCommand {
         
         let duration = try! await asset.load(.duration)
         
-        let cmTime = CMTime(seconds: time ?? duration.seconds / 2, preferredTimescale: 600)
+        let cmTime = CMTime(seconds: timestamp ?? duration.seconds / 2, preferredTimescale: 600)
         
         return try? await generator.image(at: cmTime).image
     }
